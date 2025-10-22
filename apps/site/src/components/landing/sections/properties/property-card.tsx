@@ -3,6 +3,7 @@ import { BedSingleIcon, CrownIcon, EyeIcon, HeartIcon, MapPinIcon, SquareIcon } 
 import Image, { StaticImageData } from "next/image"
 import propertyImageOne from "@/images/property-image-1.webp"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 type T_Props = {
     image: string | StaticImageData
@@ -67,7 +68,9 @@ const PropertyCard = ({image, name, location, price, areaSize, rooms}: T_Props) 
                         </div>
 
                         <div className="mt-10 @lg:mt-12 @4xl:mt-auto">
-                            <Button size="lg" className="w-full text-base font-semibold py-6"><EyeIcon /> Se hela annonsen</Button>
+                            <Link href="/property">
+                                <Button size="lg" className="w-full text-base font-semibold py-6"><EyeIcon /> Se hela annonsen</Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

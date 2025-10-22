@@ -93,7 +93,7 @@ const ChatSidebar = () => {
               
 
               <div className="flex-1 px-2 border-t border-neutral-200">
-                 <Conversation className="relative w-full">
+                  <Conversation className="relative w-full">
                     <ConversationContent className="py-2">
                       <Message from="assistant" className="items-start">
                         <MessageContent className="group-[.is-assistant]:bg-muted">Hej! Jag är din AI-fastighetrådgivare. Vad kan jag hjälpa dig med?</MessageContent>
