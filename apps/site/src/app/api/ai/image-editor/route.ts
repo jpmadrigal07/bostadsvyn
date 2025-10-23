@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         content: [
           {
             type: 'text',
-            text: `${prompt} keep everything else the same.`,
+            text: `${prompt}. Keep everything else the same. If you are going to respond a text, respond in Swedish.`,
           },
           ...(image?.url ? [{
             type: 'image' as const,

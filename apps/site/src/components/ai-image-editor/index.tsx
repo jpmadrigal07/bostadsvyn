@@ -150,7 +150,7 @@ const ImageEditor = () => {
                                             När du har valt en bild, låt oss veta vilka ändringar du vill göra!  <br /><br />
                                             <span>💡 <strong>Tips</strong>: Logga in för att spara och dela dina AI-redigeringar automatiskt!</span>
                                         </MessageContent>
-                                        <MessageAvatar name="AI Assistant" src={"/bot.svg"} />
+                                        <MessageAvatar name="AI Assistant" src="/bot.svg" />
                                     </Message>
 
                                     {messages.map((message) => (
@@ -191,7 +191,7 @@ const ImageEditor = () => {
                                                 })}
                                             </MessageContent>
                                             {message.role === "assistant" && (
-                                                <MessageAvatar name="AI Assistant" src={"/bot.svg"} />
+                                                <MessageAvatar name="AI Assistant" src="/bot.svg" />
                                             )}
                                         </Message>
                                     ))}
@@ -201,7 +201,7 @@ const ImageEditor = () => {
                                             <MessageContent className="group-[.is-assistant]:bg-muted group-[.is-assistant]:text-muted-foreground flex flex-row items-center">
                                                 <LoaderCircleIcon className="animate-spin text-primary" /> AI arbetar...
                                             </MessageContent>
-                                            <MessageAvatar name="AI Assistant" src={"/bot.svg"} />
+                                            <MessageAvatar name="AI Assistant" src="/bot.svg" />
                                         </Message>
                                     )}
 
@@ -210,7 +210,7 @@ const ImageEditor = () => {
                                             <MessageContent className="group-[.is-assistant]:bg-muted">
                                                 Oj, något gick fel när jag försökte bearbeta din begäran. Kan du försöka igen?
                                             </MessageContent>
-                                            <MessageAvatar name="AI Assistant" src={"/bot.svg"} />
+                                            <MessageAvatar name="AI Assistant" src="/bot.svg" />
                                         </Message>
                                     )}
                                 </ConversationContent>
