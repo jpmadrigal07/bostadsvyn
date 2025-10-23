@@ -107,7 +107,7 @@ const ChatSidebar = () => {
               )}
               
 
-              <div className="flex-1 px-2 border-t border-neutral-200">
+              <div className="flex-[1_1_0] px-2 border-t border-neutral-200 overflow-y-auto">
                   <Conversation className="relative w-full">
                     <ConversationContent className="py-2">
                       <Message from="assistant" className="items-start">

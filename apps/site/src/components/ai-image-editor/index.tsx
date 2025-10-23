@@ -15,6 +15,7 @@ import { useState } from "react"
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { Response } from "@/components/ai-elements/response"
+import ReactCompareImage from 'react-compare-image';
 
 const propertyImages = [
     {
@@ -165,10 +166,16 @@ const ImageEditor = () => {
                                                                 </Response>
                                                             );
                                                         case "file": 
-                                                            if(part.mediaType.startsWith("image/png") && message.role === "assistant")
+                                                            if(part.mediaType.startsWith("image/png") && message.role === "assistant") {
+                                                                const originalImage = propertyImages.find(img => img.index === selectedImage);
+
                                                                 return (
                                                                     <div key={`image-${message.id}-${i}`} className="aspect-video min-h-64 relative group">
-                                                                        <Image src={part.url} alt="AI-bild" layout="fill" objectFit="cover" />
+                                                                        <ReactCompareImage 
+                                                                            leftImage={part.url} 
+                                                                            rightImage={originalImage?.src.src || ""} 
+                                                                            sliderPositionPercentage={0.9}  
+                                                                        />
                                                                         
                                                                         <div className="absolute top-2 right-2 hidden group-hover:flex gap-2">
                                                                             <button 
@@ -183,8 +190,10 @@ const ImageEditor = () => {
                                                                         </div>
                                                                     </div>
                                                                 )
-                                                            else 
+                                                            }
+                                                            else {
                                                                 return null
+                                                            }
                                                         default:
                                                             return null
                                                     }
