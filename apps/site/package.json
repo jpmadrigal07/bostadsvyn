@@ -10,6 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@ai-sdk/google": "^2.0.23",
     "@ai-sdk/react": "^2.0.76",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -26,11 +27,15 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "dotenv": "^17.2.3",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.546.0",
     "nanoid": "^5.1.6",
     "next": "15.5.4",
     "react": "19.1.0",
+    "react-compare-image": "^3.5.10",
     "react-dom": "19.1.0",
+    "streamdown": "^1.4.0",
     "tailwind-merge": "^3.3.1",
     "use-stick-to-bottom": "^1.1.1"
   },
