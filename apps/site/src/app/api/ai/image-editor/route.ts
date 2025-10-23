@@ -1,29 +1,53 @@
 import { google } from "@/lib/ai/utils";
-import { generateText } from "ai";
-import { NextRequest, NextResponse } from "next/server";
-import fs from "node:fs";
+import { streamText, UIMessage } from "ai";
+import { NextRequest } from "next/server";
 
-export async function POST(request: NextRequest) {
-    await generateImage();
-    return NextResponse.json({ message: "Image generated" });
-}
+export async function POST(req: NextRequest) {
+  const { messages }: { messages: UIMessage[] } = await req.json()
 
-const generateImage = async () => {
-    const result = await generateText({
-        model: google("gemini-2.5-flash-image-preview"),
-        prompt: "Generate an image of a banana wearing a costume",
-    })
+  const userMessage = messages
+    .filter(message => message.role === 'user')
+    .pop()
+  
+  // Extract text from the last user message and make it the base prompt
+  const prompt = userMessage?.parts
+    ?.find(part => part.type === 'text')
+    ?.text
+  
+  // Extract the last image file from the last user message
+  const image = userMessage?.parts.find(part =>
+    part.type === 'file' &&
+    'url' in part &&
+    typeof part.url === 'string' &&
+    'mediaType' in part &&
+    typeof part.mediaType === 'string' &&
+    part.mediaType.startsWith('image/')
+  ) as
+    | ({ type: 'file'; url: string; mediaType?: string })
+    | undefined;
+  
+  const result = await streamText({
+    model: google('gemini-2.5-flash-image-preview'),
+    providerOptions: {
+      google: { responseModalities: ['TEXT', 'IMAGE'] },
+    },
+    prompt: [
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: `${prompt} keep everything else the same.`,
+          },
+          ...(image?.url ? [{
+            type: 'image' as const,
+            image: new URL(image.url, req.url),
+            mediaType: image.mediaType || 'image/jpeg',
+          }] : []),
+        ],
+      },
+    ],
+  })
 
-    // Save generated image
-    for (const file of result.files) {
-    if (file.mediaType.startsWith('image/')) {
-      const timestamp = Date.now();
-      const fileName = `generated-${timestamp}.png`;
-
-      fs.mkdirSync('output', { recursive: true });
-      await fs.promises.writeFile(`output/${fileName}`, file.uint8Array);
-
-      console.log(`Generated and saved image: output/${fileName}`);
-    }
-  }
+  return result.toUIMessageStreamResponse()
 }
